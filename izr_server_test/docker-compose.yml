@@ -1,0 +1,29 @@
+services:
+  web:
+    image: medaminbl/izr:macos
+    container_name: django_app
+    restart: always
+    volumes:
+      - ./static:/app/staticfiles
+      - ./media:/app/media
+      - ./media/IZRLOGOROUND.png:/app/media/IZRLOGOROUND.png
+    expose:
+      - "8000"  # Expose Gunicorn's port
+    command: >
+      bash -c "
+      pip install -r requirements.txt &&
+      python manage.py collectstatic --noinput &&
+      gunicorn izr_server.wsgi:application --bind 0.0.0.0:8000"
+      
+  nginx:
+    image: nginx:latest
+    container_name: nginx_server
+    restart: always
+    ports:
+      - "3000:80"  # Expose Nginx on port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Mount the custom nginx.conf
+      - ./static:/app/staticfiles  # Mount the static files
+      - ./media:/app/media  # Mount the media files
+    depends_on:
+      - web  # Make sure nginx starts after the Django app

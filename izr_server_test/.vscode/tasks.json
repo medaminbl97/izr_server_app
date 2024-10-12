@@ -1,0 +1,40 @@
+{
+    "tasks": [
+        {
+            "label": "Compose : Pull Images",
+            "type": "shell",
+            "command": "docker-compose pull",
+            "dependsOn" : "Compose : Stop Server"
+        },{
+            "label": "Compose : Run Server",
+            "type": "shell",
+            "command": "docker-compose up",
+            "dependsOn" : "Compose : Stop Server"
+        },{
+            "label": "Compose : Run Server Deomon",
+            "type": "shell",
+            "command": "docker-compose up -d",
+            "dependsOn" : "Compose : Stop Server"
+        },
+        {
+            "label": "Compose : Stop Server",
+            "type": "shell",
+            "command": "docker-compose down",
+        },
+        {
+            "label": "Nginx : Restart Nginx",
+            "type": "shell",
+            "command": "sudo systemctl restart nginx",
+        }, {
+            "label": "Nginx : Stop Nginx",
+            "type": "shell",
+            "command": "sudo systemctl stop nginx",
+        },{
+            "label": "Nginx : Open Config file",
+            "type": "shell",
+            "command": "code -r /etc/nginx/sites-enabled/izr_server",
+        },
+        
+       
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Django : Run Django Server",
+            "type": "shell",
+            "command": "myenv/bin/python3 manage.py runserver",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Django : Make Migrations",
+            "type": "shell",
+            "command": "myenv/bin/python3 manage.py makemigrations",
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Django : Migrate",
+            "type": "shell",
+            "command": "myenv/bin/python3 manage.py migrate",
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Create Superuser",
+            "type": "shell",
+            "command": "myenv/bin/python3 manage.py createsuperuser",
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Image : Build Linux Docker Image",
+            "type": "shell",
+            "command": "docker build --platform linux/amd64 -t medaminbl/izr:linux .",
+        }, {
+            "label": "Image : Build MacOS Docker Image",
+            "type": "shell",
+            "command": "docker build -t medaminbl/izr:macos .",
+        },
+        {
+            "label": "Image : Push Linux Docker Image",
+            "type": "shell",
+            "command": "docker push medaminbl/izr:linux",
+        },{
+            "label": "Image : Push MacOS Docker Image",
+            "type": "shell",
+            "command": "docker push medaminbl/izr:macos",
+        },
+        {
+            "label": "Run Test",
+            "type": "shell",
+            "command": "docker-compose up --build",
+            "options": {
+                "cwd" : "${workspaceFolder}/izr_test"
+            },
+        },
+        {
+            "label": "Setup: Create Virtual Environment",
+            "type": "shell",
+            "command": "python3 -m venv myenv",
+        },
+        {
+            "label": "Setup: Install Requirements",
+            "type": "shell",
+            "command": "./myenv/bin/pip install -r requirements.txt", 
+            "dependsOn": "Setup: Create Virtual Environment"
+        }
+    ]
+}
