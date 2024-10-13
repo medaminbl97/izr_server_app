@@ -68,7 +68,7 @@ class LastProductListDe(generics.ListAPIView):
 
     def get_queryset(self):
         # Only return events where enabled is True
-        return LastProduct.objects.filter(language="De")
+        return LastProduct.objects.filter(language="de")
 
     def list(self, request, *args, **kwargs):
         # Call the parent method to get the default response
