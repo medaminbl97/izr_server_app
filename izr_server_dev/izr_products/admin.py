@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, ContentItem, HeroImage, LastProduct, Poem, Product
+from .models import Blog, ContentItem, HeroImage, LastProduct, Poem, Product, Message
 
 
 @admin.register(Product)
@@ -40,9 +40,20 @@ from django.contrib import admin
 from .models import Imprint
 
 
-@admin.register(Imprint)
 class ImprintAdmin(admin.ModelAdmin):
     list_display = (
         "title",
         "updated_at",
     )
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "date",
+        "message",
+        "email",
+    )  # Fields to display in the list view
+    search_fields = ("name", "email")  # Fields to be searchable in the admin
+    ordering = ("-date",)  # Order by date, descending

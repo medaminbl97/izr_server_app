@@ -53,3 +53,12 @@ class BlogSerializer(serializers.ModelSerializer):
             "updated_at",
             "content_items",
         ]
+
+
+from .models import Message
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ["name", "email", "message", "date"]

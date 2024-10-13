@@ -22,6 +22,8 @@ class LastProduct(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     amazon_link = models.URLField(max_length=500)
     poem = models.TextField()
+    LANG_CHOICES = [("en", "EN"), ("de", "DE")]
+    language = models.CharField(choices=LANG_CHOICES, max_length=50, default="de")
 
     def __str__(self):
         return self.name
@@ -32,8 +34,10 @@ class LastProduct(models.Model):
 
 
 class Poem(models.Model):
+    LANG_CHOICES = [("en", "EN"), ("de", "DE")]
     content = models.TextField()
     book_name = models.CharField(max_length=50)
+    language = models.CharField(choices=LANG_CHOICES, max_length=50, default="de")
 
     def __str__(self):
         return self.book_name
@@ -114,3 +118,13 @@ class HeroImage(models.Model):
 
     def __str__(self):
         return f"Hero Image"
+
+
+class Message(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.email}"
